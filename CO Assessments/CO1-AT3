@@ -1,0 +1,75 @@
+NAME: V.Narasimhulu
+REG NO: 192424194
+# Q1. Deadlock Debugging
+
+### 1. Cause of Deadlock
+- P1 locks **R1** and waits for **R2**.
+- P2 locks **R2** and waits for **R1**.
+- Both processes wait for each other.
+- This creates a **Circular Wait**, causing a deadlock.
+
+### 2. Optimization
+- Acquire resources in the same order for both processes.
+- Example:
+  - P1 → R1 → R2
+  - P2 → R1 → R2
+- This removes the circular wait and avoids deadlock.
+
+### 3. Result
+The deadlock is eliminated, and both processes execute successfully without waiting forever.
+*************************************************************************************
+# Q2. CPU Utilization Problem
+
+### 1. Cause
+- CPU utilization is only **30%** even though processes are ready.
+- Processes keep moving between **Ready → Waiting → Ready**.
+- This happens because they spend more time waiting for **I/O operations** than using the CPU.
+
+### 2. Optimization
+- Increase the number of processes (Multiprogramming).
+- Use an efficient CPU scheduling algorithm.
+- Reduce unnecessary I/O waiting.
+
+### 3. Result
+CPU utilization increases because the CPU can execute other ready processes while one process waits for I/O.
+********************************************************************************************
+# Q3. Memory Bottleneck Debugging
+
+### 1. Cause
+- The program has **25 threads**, each using stack memory.
+- Frequent page faults occur because many threads access memory at the same time.
+- This slows down the system performance.
+
+### 2. Optimizations
+- Reduce the number of threads by using a **Thread Pool**.
+- Increase available memory or use a better page replacement technique.
+
+### 3. Result
+Page faults are reduced, memory is used efficiently, and the program runs faster.
+# Q4. Starvation Debugging
+
+### 1. Cause
+- Process **P5** is in the lowest priority queue (**Q3**).
+- Higher priority queues (**Q1** and **Q2**) always get CPU first.
+- As a result, P5 keeps waiting and suffers from **Starvation**.
+
+### 2. Optimization
+- Use **Aging** to gradually increase the priority of P5.
+- This ensures every process gets CPU time.
+
+### 3. Result
+Starvation is removed, and all processes get fair access to the CPU.
+**************************************************************************************88
+# Q5. Context-Switch Overhead Debugging
+
+### 1. Cause
+- The scheduler uses a very small time quantum (**1 ms**).
+- Threads are switched frequently before completing their execution.
+- High I/O activity increases the number of context switches.
+
+### 2. Optimizations
+- Increase the time quantum.
+- Reduce unnecessary context switching through better scheduling.
+
+### 3. Result
+The number of context switches decreases, CPU overhead is reduced, and system performance improves.
