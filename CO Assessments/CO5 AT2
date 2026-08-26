@@ -1,0 +1,142 @@
+VUNTA NARASIMHULU
+192424194
+
+
+BEGIN
+
+SET threshold = 80%
+
+usage ← GET_DISK_USAGE()
+
+IF usage > threshold THEN
+
+    log_files ← GET_LOG_FILES()
+
+    SORT log_files BY SIZE DESCENDING
+
+    FOR each file IN log_files DO
+
+        DELETE or COMPRESS file
+
+        usage ← GET_DISK_USAGE()
+
+        IF usage <= threshold THEN
+            BREAK
+        ENDIF
+
+    ENDFOR
+
+ELSE
+
+    PRINT "Disk usage is normal"
+
+ENDIF
+
+
+END
+
+
+Priority-Based CPU Scheduling Pseudocode
+
+
+BEGIN
+
+INPUT process_list
+
+SORT process_list BY priority DESCENDING
+
+WHILE process_list IS NOT EMPTY DO
+
+    SELECT process WITH HIGHEST PRIORITY
+
+    ALLOCATE CPU TO process
+
+    EXECUTE process
+
+    IF process IS COMPLETED THEN
+        REMOVE process FROM process_list
+    ELSE
+        REDUCE process priority SLIGHTLY
+        ADD process BACK TO process_list
+        SORT process_list BY priority DESCENDING
+    ENDIF
+
+ENDWHILE
+
+END
+
+BEGIN
+
+total_RAM ← 16GB
+host_reserved ← 4GB
+
+available_RAM ← total_RAM - host_reserved
+
+INPUT number_of_VMs
+
+min_RAM ← 2GB
+
+FOR i ← 1 TO number_of_VMs DO
+
+    IF available_RAM >= min_RAM THEN
+
+        ALLOCATE min_RAM TO VM[i]
+
+        available_RAM ← available_RAM - min_RAM
+
+    ELSE
+
+        PRINT "Insufficient memory"
+
+    ENDIF
+
+END FOR
+
+PRINT "Remaining RAM =", available_RAM
+
+END
+
+
+
+ BEGIN
+
+INPUT performance_required, budget, hardware_access
+
+IF performance_required = HIGH AND hardware_access = TRUE THEN
+
+    selected_hypervisor ← "Type 1 Hypervisor"
+
+ELSE IF budget = LOW THEN
+
+    selected_hypervisor ← "Type 2 Hypervisor"
+
+ELSE
+
+    selected_hypervisor ← "Type 1 Hypervisor"
+
+ENDIF
+
+PRINT "Selected Hypervisor:", selected_hypervisor
+
+END
+
+
+ BEGIN
+
+INPUT application_list
+
+FOR each app IN application_list DO
+
+    CREATE RESOURCE_GROUP for app
+
+    SET CPU_LIMIT for app
+
+    SET MEMORY_LIMIT for app
+
+    ASSIGN app PROCESS to RESOURCE_GROUP
+
+END FOR
+
+PRINT "CPU and Memory limits applied successfully"
+
+END
